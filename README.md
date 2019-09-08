@@ -5,7 +5,7 @@
 ```
 npm i elLogger --save
 
-import { Logger } from 'elLogger';
+import { Logger } from 'el-logger';
 const logger = new Logger({ name: 'my instance' });
 
 const logger = new Logger({ disabled: true });
