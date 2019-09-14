@@ -19,7 +19,7 @@ export class Logger {
   logger = console;
   verboseLoggerStream: any;
 
-  constructor(options: any) {
+  constructor(options?: LoggerOptions) {
     this.options = options || {};
     this.counter = 0;
     const rate = this.options.sampleRate || DEFAULT_SAMPLE_RATE;
