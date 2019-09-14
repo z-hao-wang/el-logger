@@ -1,11 +1,11 @@
 {
   "name": "el-logger",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "rimraf dist && tsc",
     "tsc": "tsc",
     "tsc:watch": "tsc -w",
     "prettier": "node ./node_modules/prettier/bin-prettier.js --parser=typescript --single-quote --trailing-comma=all --write --print-width=120 'src/**/*.ts'",
@@ -24,7 +24,8 @@
   "dependencies": {
     "chalk": "2.4.2",
     "lodash": "4.17.15",
-    "moment": "2.24.0"
+    "moment": "2.24.0",
+    "rimraf": "^3.0.0"
   },
   "devDependencies": {
     "@types/lodash": "4.14.123",

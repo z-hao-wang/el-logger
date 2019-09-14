@@ -6,10 +6,16 @@ import { RateLimit } from './rateLimit';
 const DEFAULT_SAMPLE_RATE = 2; // log x times every DEFAULT_SAMPLE_PERIOD seconds
 const DEFAULT_SAMPLE_PERIOD = 5;
 
+interface LoggerOptions {
+  sampleRate?: number;
+  samplePeriod?: number;
+  [key: string]: string | number | undefined;
+}
 export class Logger {
-  private options: any;
+  private options: LoggerOptions;
   private counter: number;
   private limiter: RateLimit;
+  disabled: boolean = false;
   logger = console;
   verboseLoggerStream: any;
 
@@ -17,7 +23,7 @@ export class Logger {
     this.options = options || {};
     this.counter = 0;
     const rate = this.options.sampleRate || DEFAULT_SAMPLE_RATE;
-    this.limiter = new RateLimit(rate, DEFAULT_SAMPLE_PERIOD);
+    this.limiter = new RateLimit(rate, this.options.samplePeriod || DEFAULT_SAMPLE_PERIOD);
   }
 
   // replace console with custom logger
@@ -26,7 +32,7 @@ export class Logger {
   }
 
   setDisabled(disabled: boolean) {
-    this.options.disabled = disabled;
+    this.disabled = disabled;
   }
 
   _limitedLogInfo() {
@@ -36,30 +42,20 @@ export class Logger {
   _stringifyOptions() {
     let stringifyOptions: string = '';
     _.forOwn(this.options, (value, key) => {
-      if (!_.includes(['sampleRate', 'disabled'], key)) {
+      if (!_.includes(['sampleRate', 'samplePeriod'], key)) {
         stringifyOptions += `${key}=${value} `;
       }
     });
     return moment().format('YYYY-MM-DD HH:mm:ss') + ' ' + stringifyOptions.substring(0, stringifyOptions.length - 1);
   }
 
-  _getVerboseLogFileName() {
-    let fileName: string = '';
-    _.forOwn(this.options, (value, key) => {
-      if (key !== 'sampleRate') {
-        fileName += `${value}`;
-      }
-    });
-    return fileName;
-  }
-
   log(...args: any[]) {
-    if (this.options.disabled) return;
+    if (this.disabled) return;
     const res: any = [].concat.call([this._stringifyOptions()], (Array as any).prototype.slice.call(arguments));
     this.logger.log.apply(this.logger, res);
   }
   info(...args: any[]) {
-    if (this.options.disabled) return;
+    if (this.disabled) return;
     const res: any = [].concat.call(
       [chalk.blue(this._stringifyOptions())],
       (Array as any).prototype.slice.call(arguments as any),

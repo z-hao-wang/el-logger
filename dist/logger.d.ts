@@ -2,6 +2,7 @@ export declare class Logger {
     private options;
     private counter;
     private limiter;
+    disabled: boolean;
     logger: Console;
     verboseLoggerStream: any;
     constructor(options: any);
@@ -9,7 +10,6 @@ export declare class Logger {
     setDisabled(disabled: boolean): void;
     _limitedLogInfo(): void;
     _stringifyOptions(): string;
-    _getVerboseLogFileName(): string;
     log(...args: any[]): void;
     info(...args: any[]): void;
     error(...args: any[]): void;
