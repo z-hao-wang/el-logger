@@ -3,5 +3,5 @@ export declare class RateLimit {
     private times;
     private seconds;
     constructor(times: number, seconds: number);
-    run(cb: any): void;
+    run(cb: any): boolean;
 }

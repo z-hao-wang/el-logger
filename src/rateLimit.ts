@@ -12,13 +12,16 @@ export class RateLimit {
     this.seconds = seconds;
   }
 
-  run(cb: any) {
+  // if fired, return true, otherwise return false
+  run(cb: any): boolean {
     const now = new Date().getTime();
     // drop any old data
     this.firedTs = _.filter(this.firedTs, ts => ts > now - this.seconds * 1000);
     if (this.firedTs.length < this.times) {
       this.firedTs.push(now);
       cb();
+      return true;
     }
+    return false;
   }
 }

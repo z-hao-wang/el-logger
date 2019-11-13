@@ -9,6 +9,7 @@ class RateLimit {
         this.times = times;
         this.seconds = seconds;
     }
+    // if fired, return true, otherwise return false
     run(cb) {
         const now = new Date().getTime();
         // drop any old data
@@ -16,7 +17,9 @@ class RateLimit {
         if (this.firedTs.length < this.times) {
             this.firedTs.push(now);
             cb();
+            return true;
         }
+        return false;
     }
 }
 exports.RateLimit = RateLimit;
