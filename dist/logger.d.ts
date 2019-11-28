@@ -1,12 +1,13 @@
+import { RateLimit } from './rateLimit';
 interface LoggerOptions {
     sampleRate?: number;
     samplePeriod?: number;
     [key: string]: string | number | undefined;
 }
 export declare class Logger {
-    private options;
-    private counter;
-    private limiter;
+    protected options: LoggerOptions;
+    protected counter: number;
+    protected limiter: RateLimit;
     disabled: boolean;
     logger: Console;
     verboseLoggerStream: any;

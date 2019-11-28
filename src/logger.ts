@@ -12,9 +12,9 @@ interface LoggerOptions {
   [key: string]: string | number | undefined;
 }
 export class Logger {
-  private options: LoggerOptions;
-  private counter: number;
-  private limiter: RateLimit;
+  protected options: LoggerOptions;
+  protected counter: number;
+  protected limiter: RateLimit;
   disabled: boolean = false;
   logger = console;
   verboseLoggerStream: any;
