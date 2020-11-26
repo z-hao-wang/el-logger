@@ -21,5 +21,16 @@ class RateLimit {
         }
         return false;
     }
+    // if fired, return true, otherwise return false
+    runWithTs(now, cb) {
+        // drop any old data
+        this.firedTs = _.filter(this.firedTs, ts => ts > now - this.seconds * 1000);
+        if (this.firedTs.length < this.times) {
+            this.firedTs.push(now);
+            cb();
+            return true;
+        }
+        return false;
+    }
 }
 exports.RateLimit = RateLimit;
