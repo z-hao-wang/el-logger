@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "sourceMap": false,
-    "lib": [ "es2015", "dom" ],
+    "lib": [ "ES2017", "dom" ],
     "noEmitOnError": true,
     "target": "ES6",
     "strict": true,

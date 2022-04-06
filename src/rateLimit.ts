@@ -1,5 +1,3 @@
-import * as _ from 'lodash';
-
 export class RateLimit {
   private firedTs: number[];
   private times: number;
@@ -16,7 +14,7 @@ export class RateLimit {
   run(cb: any): boolean {
     const now = new Date().getTime();
     // drop any old data
-    this.firedTs = _.filter(this.firedTs, ts => ts > now - this.seconds * 1000);
+    this.firedTs = this.firedTs.filter(ts => ts > now - this.seconds * 1000);
     if (this.firedTs.length < this.times) {
       this.firedTs.push(now);
       cb();
@@ -28,7 +26,7 @@ export class RateLimit {
   // if fired, return true, otherwise return false
   runWithTs(now: number, cb: any): boolean {
     // drop any old data
-    this.firedTs = _.filter(this.firedTs, ts => ts > now - this.seconds * 1000);
+    this.firedTs = this.firedTs.filter(ts => ts > now - this.seconds * 1000);
     if (this.firedTs.length < this.times) {
       this.firedTs.push(now);
       cb();

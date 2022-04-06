@@ -1,11 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const chalk_1 = require("chalk");
-const moment = require("moment");
-const _ = require("lodash");
 const rateLimit_1 = require("./rateLimit");
 const DEFAULT_SAMPLE_RATE = 2; // log x times every DEFAULT_SAMPLE_PERIOD seconds
 const DEFAULT_SAMPLE_PERIOD = 5;
+const removedKey = ['sampleRate', 'samplePeriod'];
 class Logger {
     constructor(options) {
         this.disabled = false;
@@ -27,12 +25,13 @@ class Logger {
     }
     _stringifyOptions() {
         let stringifyOptions = '';
-        _.forOwn(this.options, (value, key) => {
-            if (!_.includes(['sampleRate', 'samplePeriod'], key)) {
+        for (let key in this.options) {
+            const value = this.options[key];
+            if (!removedKey.includes(key)) {
                 stringifyOptions += `${key}=${value} `;
             }
-        });
-        return moment().format('YYYY-MM-DD HH:mm:ss') + ' ' + stringifyOptions.substring(0, stringifyOptions.length - 1);
+        }
+        return new Date().toISOString().substring(0, 19) + ' ' + stringifyOptions.substring(0, stringifyOptions.length - 1);
     }
     log(...args) {
         if (this.disabled)
@@ -43,15 +42,15 @@ class Logger {
     info(...args) {
         if (this.disabled)
             return;
-        const res = [].concat.call([chalk_1.default.blue(this._stringifyOptions())], Array.prototype.slice.call(arguments));
+        const res = [].concat.call([this._stringifyOptions()], Array.prototype.slice.call(arguments));
         this.logger.info.apply(this.logger, res);
     }
     error(...args) {
-        const res = [].concat.call([chalk_1.default.red(this._stringifyOptions())], Array.prototype.slice.call(arguments));
+        const res = [].concat.call([this._stringifyOptions()], Array.prototype.slice.call(arguments));
         this.logger.error.apply(this.logger, res);
     }
     warn(...args) {
-        const res = [].concat.call([chalk_1.default.yellow(this._stringifyOptions())], Array.prototype.slice.call(arguments));
+        const res = [].concat.call([this._stringifyOptions()], Array.prototype.slice.call(arguments));
         this.logger.warn.apply(this.logger, res);
     }
     sample(data, arg2) {

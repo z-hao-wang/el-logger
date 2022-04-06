@@ -1,6 +1,6 @@
 {
   "name": "el-logger",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -22,13 +22,9 @@
     "url": "https://github.com/z-hao-wang/el-logger.git"
   },
   "dependencies": {
-    "chalk": "2.4.2",
-    "lodash": "4.17.15",
-    "moment": "2.24.0",
-    "rimraf": "^3.0.0"
   },
   "devDependencies": {
-    "@types/lodash": "4.14.123",
+    "rimraf": "^3.0.0",
     "prettier": "1.16.4"
   }
 }
