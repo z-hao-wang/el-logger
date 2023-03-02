@@ -3,7 +3,7 @@
 ## usage
 
 ```
-npm i elLogger --save
+npm i el-logger --save
 
 import { Logger } from 'el-logger';
 const logger = new Logger({ name: 'my instance' });
