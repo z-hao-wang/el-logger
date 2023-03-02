@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Logger = void 0;
 const rateLimit_1 = require("./rateLimit");
 const DEFAULT_SAMPLE_RATE = 2; // log x times every DEFAULT_SAMPLE_PERIOD seconds
 const DEFAULT_SAMPLE_PERIOD = 5;
@@ -31,7 +32,12 @@ class Logger {
                 stringifyOptions += `${key}=${value} `;
             }
         }
-        return new Date().toISOString().substring(0, 19) + ' ' + stringifyOptions.substring(0, stringifyOptions.length - 1);
+        if (stringifyOptions) {
+            return new Date().toISOString().substring(0, 19) + ' ' + stringifyOptions.substring(0, stringifyOptions.length - 1);
+        }
+        else {
+            return new Date().toISOString().substring(0, 19);
+        }
     }
     log(...args) {
         if (this.disabled)

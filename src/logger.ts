@@ -45,7 +45,13 @@ export class Logger {
         stringifyOptions += `${key}=${value} `;
       }
     }
-    return new Date().toISOString().substring(0, 19) + ' ' + stringifyOptions.substring(0, stringifyOptions.length - 1);
+    if (stringifyOptions) {
+      return (
+        new Date().toISOString().substring(0, 19) + ' ' + stringifyOptions.substring(0, stringifyOptions.length - 1)
+      );
+    } else {
+      return new Date().toISOString().substring(0, 19);
+    }
   }
 
   log(...args: any[]) {

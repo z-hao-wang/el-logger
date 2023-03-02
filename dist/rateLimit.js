@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.RateLimit = void 0;
 class RateLimit {
     constructor(times, seconds) {
         // Limit X times per Y seconds
