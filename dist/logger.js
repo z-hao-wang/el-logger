@@ -33,7 +33,7 @@ class Logger {
             }
         }
         if (stringifyOptions) {
-            return new Date().toISOString().substring(0, 19) + ' ' + stringifyOptions.substring(0, stringifyOptions.length - 1);
+            return (new Date().toISOString().substring(0, 19) + ' ' + stringifyOptions.substring(0, stringifyOptions.length - 1));
         }
         else {
             return new Date().toISOString().substring(0, 19);
